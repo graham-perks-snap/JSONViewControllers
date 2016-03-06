@@ -1,0 +1,6 @@
+framework module Pods_JSONViewControllers_Example {
+  umbrella header "Pods-JSONViewControllers_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
