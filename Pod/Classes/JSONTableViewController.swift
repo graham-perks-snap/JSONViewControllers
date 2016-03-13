@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-protocol JSONTableCellConfigurer {
+public protocol JSONTableCellConfigurer {
     func configureInTableViewController(tableViewController: UITableViewController, cellDefinition: JSON)
 }
 
@@ -23,14 +23,14 @@ extension String {
     }
 }
 
-class JSONTableViewController: UITableViewController {
+public class JSONTableViewController: UITableViewController {
 
-    var sections: JSON!
+    public var sections: JSON!
     var cellConfigurers = [String: JSONTableCellConfigurer]()
 
     //MARK:
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
     }
 
@@ -52,7 +52,7 @@ class JSONTableViewController: UITableViewController {
 
     //MARK:
 
-    func setJSON(url:NSURL) {
+    public func setJSON(url:NSURL) {
         if let data = NSData(contentsOfURL: url) {
             var error : NSError?
             sections = JSON(data: data, error: &error)
@@ -82,7 +82,7 @@ class JSONTableViewController: UITableViewController {
         }
     }
 
-    func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
+    public func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
         let section = sections.arrayValue[indexPath.section]
         let rows = section["rows"]
         let row = rows[indexPath.row]
@@ -90,7 +90,7 @@ class JSONTableViewController: UITableViewController {
         return row
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = cellForIndexPath(indexPath)
 
         if let action = row["action"].string {
@@ -105,18 +105,18 @@ class JSONTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["class"].string ?? row["nib"].stringValue

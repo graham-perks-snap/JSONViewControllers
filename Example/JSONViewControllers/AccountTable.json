@@ -1,0 +1,21 @@
+[
+{
+    "rows": [
+        {
+            "nib": "AccountSectionCell",
+            "image": "graphic_wallet",
+            "caption": "your wallet",
+            "actionText": "manage your cards",
+            "nameTextKeyPath": "user.name"
+        },
+        {
+            "nib": "TitleTableViewCell",
+            "heading": "Some info"
+        },
+        { "class": "SpacerTableViewCell", "height": 10},
+        {
+            "nib": "TitleTableViewCell",
+            "heading": "More information"
+        },
+    ]
+}]

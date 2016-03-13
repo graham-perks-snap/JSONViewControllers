@@ -7,9 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44A208DF1C95F4A600EA58FD /* AccountSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208DB1C95F4A600EA58FD /* AccountSectionCell.swift */; };
+		44A208E01C95F4A600EA58FD /* AccountSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44A208DC1C95F4A600EA58FD /* AccountSectionCell.xib */; };
+		44A208E11C95F4A600EA58FD /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208DD1C95F4A600EA58FD /* ButtonTableViewCell.swift */; };
+		44A208E21C95F4A600EA58FD /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44A208DE1C95F4A600EA58FD /* ButtonTableViewCell.xib */; };
+		44A208E61C95F4BD00EA58FD /* SpacerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208E31C95F4BD00EA58FD /* SpacerTableViewCell.swift */; };
+		44A208E71C95F4BD00EA58FD /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208E41C95F4BD00EA58FD /* TitleTableViewCell.swift */; };
+		44A208E81C95F4BD00EA58FD /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44A208E51C95F4BD00EA58FD /* TitleTableViewCell.xib */; };
+		44A208EA1C95F78200EA58FD /* AccountTable.json in Resources */ = {isa = PBXBuildFile; fileRef = 44A208E91C95F78200EA58FD /* AccountTable.json */; };
+		44A208ED1C95FB4500EA58FD /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208EC1C95FB4500EA58FD /* UIColor+Hex.swift */; };
+		44A208EF1C95FD0F00EA58FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208EE1C95FD0F00EA58FD /* User.swift */; };
 		4FD0CF29C76487DA85C85A29 /* Pods_JSONViewControllers_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB50B3529B8F32D1434185F /* Pods_JSONViewControllers_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACD81AFB9204008FA782 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* TableViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -32,10 +42,20 @@
 		15CC6C0F2234827849DCBA6A /* Pods_JSONViewControllers_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSONViewControllers_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		375180BA3FEE857705102AC9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		3CA29D014FD65B1A85505B07 /* Pods-JSONViewControllers_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONViewControllers_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JSONViewControllers_Tests/Pods-JSONViewControllers_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		44A208DB1C95F4A600EA58FD /* AccountSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSectionCell.swift; sourceTree = "<group>"; };
+		44A208DC1C95F4A600EA58FD /* AccountSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountSectionCell.xib; sourceTree = "<group>"; };
+		44A208DD1C95F4A600EA58FD /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		44A208DE1C95F4A600EA58FD /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
+		44A208E31C95F4BD00EA58FD /* SpacerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerTableViewCell.swift; sourceTree = "<group>"; };
+		44A208E41C95F4BD00EA58FD /* TitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
+		44A208E51C95F4BD00EA58FD /* TitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
+		44A208E91C95F78200EA58FD /* AccountTable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AccountTable.json; sourceTree = "<group>"; };
+		44A208EC1C95FB4500EA58FD /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		44A208EE1C95FD0F00EA58FD /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* JSONViewControllers_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSONViewControllers_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -69,6 +89,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44A208EB1C95F79500EA58FD /* Table rows */ = {
+			isa = PBXGroup;
+			children = (
+				44A208DB1C95F4A600EA58FD /* AccountSectionCell.swift */,
+				44A208DC1C95F4A600EA58FD /* AccountSectionCell.xib */,
+				44A208DD1C95F4A600EA58FD /* ButtonTableViewCell.swift */,
+				44A208DE1C95F4A600EA58FD /* ButtonTableViewCell.xib */,
+				44A208E31C95F4BD00EA58FD /* SpacerTableViewCell.swift */,
+				44A208E41C95F4BD00EA58FD /* TitleTableViewCell.swift */,
+				44A208E51C95F4BD00EA58FD /* TitleTableViewCell.xib */,
+			);
+			name = "Table rows";
+			sourceTree = "<group>";
+		};
+		44A208F01C95FFA200EA58FD /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				44A208EE1C95FD0F00EA58FD /* User.swift */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -93,11 +135,15 @@
 		607FACD21AFB9204008FA782 /* Example for JSONViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				44A208E91C95F78200EA58FD /* AccountTable.json */,
+				607FACD71AFB9204008FA782 /* TableViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				44A208F01C95FFA200EA58FD /* Data Model */,
+				44A208EB1C95F79500EA58FD /* Table rows */,
+				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				44A208EC1C95FB4500EA58FD /* UIColor+Hex.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for JSONViewControllers";
@@ -246,7 +292,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A208E81C95F4BD00EA58FD /* TitleTableViewCell.xib in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				44A208E01C95F4A600EA58FD /* AccountSectionCell.xib in Resources */,
+				44A208E21C95F4A600EA58FD /* ButtonTableViewCell.xib in Resources */,
+				44A208EA1C95F78200EA58FD /* AccountTable.json in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -359,8 +409,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				44A208ED1C95FB4500EA58FD /* UIColor+Hex.swift in Sources */,
+				607FACD81AFB9204008FA782 /* TableViewController.swift in Sources */,
+				44A208DF1C95F4A600EA58FD /* AccountSectionCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				44A208EF1C95FD0F00EA58FD /* User.swift in Sources */,
+				44A208E61C95F4BD00EA58FD /* SpacerTableViewCell.swift in Sources */,
+				44A208E71C95F4BD00EA58FD /* TitleTableViewCell.swift in Sources */,
+				44A208E11C95F4A600EA58FD /* ButtonTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

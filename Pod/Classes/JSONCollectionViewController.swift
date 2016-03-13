@@ -9,17 +9,17 @@
 import UIKit
 import SwiftyJSON
 
-protocol JSONCollectionCellConfigurer {
+public protocol JSONCollectionCellConfigurer {
     func configureInCollectionViewController(collectionViewController: UICollectionViewController, cellDefinition: JSON)
 }
 
-class JSONCollectionViewController: UICollectionViewController {
+public class JSONCollectionViewController: UICollectionViewController {
 
-    var sections: JSON!
+    public var sections: JSON!
     var cellConfigurers = [String: JSONCollectionCellConfigurer]()
 
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -27,7 +27,7 @@ class JSONCollectionViewController: UICollectionViewController {
     }
 
 
-    func setJSON(url:NSURL) {
+    public func setJSON(url:NSURL) {
 
         if let data = NSData(contentsOfURL: url) {
             var error : NSError?
@@ -41,7 +41,7 @@ class JSONCollectionViewController: UICollectionViewController {
         }
     }
 
-    func registerConfigurers() {
+    public func registerConfigurers() {
 
         for section in sections.arrayValue {
             for row in section["rows"].arrayValue {
@@ -58,7 +58,7 @@ class JSONCollectionViewController: UICollectionViewController {
     }
 
 
-    func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
+    public func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
         let section = sections.arrayValue[indexPath.section]
         let rows = section["rows"]
         let row = rows[indexPath.row]
@@ -68,18 +68,18 @@ class JSONCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return sections.count
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["class"].string ?? row["nib"].stringValue
@@ -98,7 +98,7 @@ class JSONCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
 
 
-    override func collectionView(collectionView: UICollectionView,
+    override public func collectionView(collectionView: UICollectionView,
                           didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let row = cellForIndexPath(indexPath)
@@ -137,7 +137,7 @@ class JSONCollectionViewController: UICollectionViewController {
         return false
     }
 */
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+    override public  func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
     }
 

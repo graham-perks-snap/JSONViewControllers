@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7ED4AB150C37554E5B408288'
+               BlueprintIdentifier = 'CA2367033E95BFC0355F0DD9'
                BlueprintName = 'JSONViewControllers'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'JSONViewControllers.framework'>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ButtonTableViewCell" id="8Ig-kA-Xgt" customClass="ButtonTableViewCell" customModule="JSONViewControllers_Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Ig-kA-Xgt" id="xju-b2-Q5Y">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6F-fA-n4J">
+                        <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="5tW-V4-VdQ"/>
+                        </constraints>
+                        <state key="normal" title="Button" backgroundImage="global-button-outline-light"/>
+                        <connections>
+                            <action selector="didTapButton:" destination="8Ig-kA-Xgt" eventType="touchUpInside" id="LYg-6R-70a"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="m6F-fA-n4J" secondAttribute="trailing" constant="15" id="0tm-5y-VLw"/>
+                    <constraint firstAttribute="bottom" secondItem="m6F-fA-n4J" secondAttribute="bottom" id="BTN-dh-nYl"/>
+                    <constraint firstItem="m6F-fA-n4J" firstAttribute="top" secondItem="xju-b2-Q5Y" secondAttribute="top" id="DuF-bc-OPk"/>
+                    <constraint firstItem="m6F-fA-n4J" firstAttribute="leading" secondItem="xju-b2-Q5Y" secondAttribute="leading" constant="15" id="XLF-tr-P0E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="button" destination="m6F-fA-n4J" id="LBS-fF-xdP"/>
+            </connections>
+            <point key="canvasLocation" x="550" y="447"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="global-button-outline-light" width="11" height="11"/>
+    </resources>
+</document>
