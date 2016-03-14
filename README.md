@@ -92,6 +92,7 @@ JSON is optional. You can assign directly to the 'sections' array after building
 
 #### Hints
 
+- Add `import SwiftyJSON`.
 - When designing a nib, first delete the UIView that Interface Builder gives you, and drag out a table or collection view cell.
 - Make the XIB, class, and cell's reusable identifier all the same.
 - Use auto-layout within the cells to define cell height.
