@@ -35,7 +35,7 @@ Each row has a set of attributes defined by the row's cell definition. For examp
             }
         ]
     }
-}
+]
 ```
 
 This is a single-celled table. The outer array is for sections; the single section contains an array of rows. Interestingly cells can define key-value paths for their data, e.g.
@@ -53,6 +53,38 @@ XIBs aren't required. Cells can be defined as classes, too:
             {
                 "class": "NameCell",
                 "nameKeyPath": "user.name"
+            }
+```
+
+
+#### Pre-defined keys
+
+**action**
+
+An "action" key will trigger when the row is tapped. The value should be the name of a Selector; optionally taking a parameter which will be the cell definition dictionary.
+```swift
+    func menuItemTapped(cell: [String : AnyObject]) {
+        let json = JSON(cell)
+
+        // Log an event given the "analytics" entry in the row definition, e.g.
+        Analytics.LogEvent(json["analytics"].stringValue)
+        
+        // And trigger the segue given the "segue" value.
+        if let segueName = json["segue"].string {
+            parentViewController?.performSegueWithIdentifier(segueName, sender: self)
+        }
+    }
+```
+
+An appropriate cell driving this logic might be:
+
+```json
+            {
+                "action": "menuItemTapped:",
+                "nib": "NavigationCell",
+                "analytics": "Navigator|food",
+                "caption": "Food Menu",
+                "icon": "icn_foodmenu"
             }
 ```
 
