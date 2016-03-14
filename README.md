@@ -83,6 +83,7 @@ An appropriate cell driving this logic might be:
                 "action": "menuItemTapped:",
                 "nib": "NavigationCell",
                 "analytics": "Navigator|food",
+                "segue": "showFoodMenu",
                 "caption": "Food Menu",
                 "icon": "icn_foodmenu"
             }
