@@ -66,7 +66,7 @@ public class JSONTableViewController: UITableViewController {
     }
 
     // Iterate through all the rows ensuring each cell's NIB and class is registered with the table
-    func registerConfigurers() {
+    public func registerConfigurers() {
 
         for section in sections.arrayValue {
             for row in section["rows"].arrayValue {
