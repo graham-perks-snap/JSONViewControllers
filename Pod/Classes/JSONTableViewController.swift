@@ -72,7 +72,8 @@ public class JSONTableViewController: UITableViewController {
             for row in section["rows"].arrayValue {
                 if let rowClass = row["class"].string {
                     let clazz:AnyClass = rowClass.classFromClassName()
-                    tableView.registerClass(clazz, forCellReuseIdentifier: rowClass)
+                    let reuseId = row["reuseId"].string ?? rowClass // use reuseId if one is provided
+                    tableView.registerClass(clazz, forCellReuseIdentifier: reuseId)
                 }
                 else if let rowNib = row["nib"].string {
                     let nib = UINib(nibName: rowNib, bundle: nil)
@@ -119,7 +120,7 @@ public class JSONTableViewController: UITableViewController {
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let row = cellForIndexPath(indexPath)
-        let reuseId = row["class"].string ?? row["nib"].stringValue
+        let reuseId = row["reuseId"].string ?? (row["class"].string ?? row["nib"].stringValue)
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseId, forIndexPath: indexPath)
 
         // Configure the cell...
