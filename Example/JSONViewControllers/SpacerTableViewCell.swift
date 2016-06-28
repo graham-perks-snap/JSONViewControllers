@@ -30,13 +30,7 @@ class SpacerTableViewCell: UITableViewCell, JSONTableCellConfigurer {
         }
         else {
             // Create new constraint.
-            var hConstraint: NSLayoutConstraint
-            if #available(iOS 9.0, *) {
-                hConstraint = contentView.heightAnchor.constraintEqualToConstant(height)
-            } else {
-                // Fallback on earlier versions
-                hConstraint = NSLayoutConstraint(item: contentView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
-            }
+            let hConstraint = contentView.heightAnchor.constraintEqualToConstant(height)
             NSLayoutConstraint.activateConstraints([hConstraint])
             heightConstraint = hConstraint
         }

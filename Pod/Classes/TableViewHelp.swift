@@ -9,17 +9,6 @@
 import UIKit
 
 
-extension String {
-    // Swift class names are AppName.ClassName.
-    // Prepend the app name with the given class name.
-    func classFromClassName() -> AnyClass! {
-        var appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
-        appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
-        return NSClassFromString("\(appName).\(self)")
-    }
-}
-
-
 public protocol TableCellConfigurer {
     func configureIn(definition: TableRow, indexPath: NSIndexPath)
 }
