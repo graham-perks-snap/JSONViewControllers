@@ -13,8 +13,8 @@ public protocol TableCellConfigurer {
     func configureIn(definition: TableRow, indexPath: NSIndexPath)
 }
 
-extension TableCellConfigurer {
-    func configureIn(definition: TableRow, indexPath: NSIndexPath) {
+public extension TableCellConfigurer {
+    public func configureIn(definition: TableRow, indexPath: NSIndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
@@ -52,6 +52,7 @@ public protocol TableSectionWithSupplementaryViews: TableSection {
 // A regular section with no headers or footers
 public class DefaultTableSection: TableSection {
     public var rows = [TableRow]()
+    public init() {}
 }
 
 // MARK: - Table view data source
@@ -112,9 +113,7 @@ public class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
 
 public class TableViewDelegateHelper: NSObject, UITableViewDelegate {
 
-    override init() { super.init() }
-
-    init(actionTarget: NSObjectProtocol) {
+    public init(actionTarget: NSObjectProtocol) {
         self.target = actionTarget
         super.init()
     }
@@ -135,6 +134,10 @@ public class TableViewDelegateHelper: NSObject, UITableViewDelegate {
 
 
 public class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
+    public override init(actionTarget: NSObjectProtocol) {
+        super.init(actionTarget: actionTarget)
+    }
+
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
@@ -146,6 +149,10 @@ public class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
 
 // Table with section header or footers
 public class TableViewDelegateWithSupplementaryViewsHelper: TableViewDelegateVariableRowHeightHelper {
+
+    public override init(actionTarget: NSObjectProtocol) {
+        super.init(actionTarget: actionTarget)
+    }
 
     public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper

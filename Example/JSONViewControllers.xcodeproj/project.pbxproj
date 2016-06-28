@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4424A1B81D2331E60014504B /* TableHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424A1B71D2331E60014504B /* TableHelperViewController.swift */; };
 		44A208DF1C95F4A600EA58FD /* AccountSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208DB1C95F4A600EA58FD /* AccountSectionCell.swift */; };
 		44A208E01C95F4A600EA58FD /* AccountSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44A208DC1C95F4A600EA58FD /* AccountSectionCell.xib */; };
 		44A208E11C95F4A600EA58FD /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A208DD1C95F4A600EA58FD /* ButtonTableViewCell.swift */; };
@@ -41,6 +42,7 @@
 		375180BA3FEE857705102AC9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		3F0A6346BBBA7253D5C2AD67 /* Pods-JSONViewControllers_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONViewControllers_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JSONViewControllers_Tests/Pods-JSONViewControllers_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		43DAA1BA833D333339788C51 /* Pods-JSONViewControllers_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSONViewControllers_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-JSONViewControllers_Example/Pods-JSONViewControllers_Example.release.xcconfig"; sourceTree = "<group>"; };
+		4424A1B71D2331E60014504B /* TableHelperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHelperViewController.swift; sourceTree = "<group>"; };
 		44A208DB1C95F4A600EA58FD /* AccountSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSectionCell.swift; sourceTree = "<group>"; };
 		44A208DC1C95F4A600EA58FD /* AccountSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountSectionCell.xib; sourceTree = "<group>"; };
 		44A208DD1C95F4A600EA58FD /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				44A208E91C95F78200EA58FD /* AccountTable.json */,
 				607FACD71AFB9204008FA782 /* TableViewController.swift */,
+				4424A1B71D2331E60014504B /* TableHelperViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				44A208F01C95FFA200EA58FD /* Data Model */,
 				44A208EB1C95F79500EA58FD /* Table rows */,
@@ -406,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4424A1B81D2331E60014504B /* TableHelperViewController.swift in Sources */,
 				44A208ED1C95FB4500EA58FD /* UIColor+Hex.swift in Sources */,
 				607FACD81AFB9204008FA782 /* TableViewController.swift in Sources */,
 				44A208DF1C95F4A600EA58FD /* AccountSectionCell.swift in Sources */,

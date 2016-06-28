@@ -13,8 +13,8 @@ public protocol CollectionCellConfigurer {
     func configureIn(definition: CollectionItem, indexPath: NSIndexPath)
 }
 
-extension CollectionCellConfigurer {
-    func configureIn(definition: CollectionItem, indexPath: NSIndexPath) {
+public extension CollectionCellConfigurer {
+    public func configureIn(definition: CollectionItem, indexPath: NSIndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
@@ -22,6 +22,15 @@ extension CollectionCellConfigurer {
 public enum CollectionRowSource {
     case Nib(String)
     case Class(String)
+}
+
+
+// Swift class names are AppName.ClassName.
+// Prepend the app name with the given class name.
+func classFromClassName(className: String) -> AnyClass! {
+    var appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
+    appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
+    return NSClassFromString("\(appName).\(className)")
 }
 
 //MARK: Collection Item
@@ -44,6 +53,7 @@ public protocol CollectionSection {
 
 // A regular section with no headers or footers
 public class DefaultCollectionSection: CollectionSection {
+    public init() {}
     public var items = [CollectionItem]()
 }
 
@@ -63,7 +73,7 @@ public class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSourc
 
                     collectionView.registerNib(nib, forCellWithReuseIdentifier: item.reuseIdentifier)
                 case .Class(let className):
-                    let clazz:AnyClass = className.classFromClassName()
+                    let clazz:AnyClass = classFromClassName(className)
                     collectionView.registerClass(clazz, forCellWithReuseIdentifier: item.reuseIdentifier)
                 }
             }
@@ -106,9 +116,9 @@ public class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSourc
 
 public class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
 
-    override init() { super.init() }
+    public override init() { super.init() }
 
-    init(collectionViewController: UICollectionViewController) {
+    public init(collectionViewController: UICollectionViewController) {
         self.collectionViewController = collectionViewController
         super.init()
     }
