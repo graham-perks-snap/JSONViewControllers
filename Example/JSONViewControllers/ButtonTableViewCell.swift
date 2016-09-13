@@ -20,21 +20,21 @@ class ButtonTableViewCell: UITableViewCell, JSONTableCellConfigurer {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func didTapButton(sender: AnyObject) {
+    @IBAction func didTapButton(_ sender: AnyObject) {
         let sel = Selector(action!)
-        tableViewController?.performSelector(sel, withObject: self)
+        tableViewController?.perform(sel, with: self)
     }
 
-    func configureInTableViewController(tableViewController: UITableViewController, cellDefinition json: JSON) {
+    func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition json: JSON) {
 
         self.tableViewController = tableViewController
         action = json["action"].stringValue

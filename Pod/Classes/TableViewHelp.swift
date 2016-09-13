@@ -9,30 +9,19 @@
 import UIKit
 
 
-extension String {
-    // Swift class names are AppName.ClassName.
-    // Prepend the app name with the given class name.
-    func classFromClassName() -> AnyClass! {
-        var appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
-        appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
-        return NSClassFromString("\(appName).\(self)")
-    }
-}
-
-
 public protocol TableCellConfigurer {
-    func configureIn(definition: TableRow, indexPath: NSIndexPath)
+    func configureIn(_ definition: TableRow, indexPath: IndexPath)
 }
 
-extension TableCellConfigurer {
-    func configureIn(definition: TableRow, indexPath: NSIndexPath) {
+public extension TableCellConfigurer {
+    public func configureIn(_ definition: TableRow, indexPath: IndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
 
 public enum TableRowSource {
-    case Nib(String)
-    case Class(String)
+    case nib(String)
+    case `class`(String)
 }
 
 //MARK: Table Row
@@ -47,7 +36,7 @@ public protocol TableRow: class {
     var height: CGFloat { get }
     var action: String? { get }
 
-    func configureIn(cell: TableCellConfigurer, indexPath: NSIndexPath)
+    func configureIn(_ cell: TableCellConfigurer, indexPath: IndexPath)
 }
 
 public protocol TableSection {
@@ -57,58 +46,59 @@ public protocol TableSection {
 // A section with header or footer
 public protocol TableSectionWithSupplementaryViews: TableSection {
     var headerHeight: CGFloat { get }
-    func headerViewForTableView(tableView: UITableView) -> UIView?
+    func headerViewForTableView(_ tableView: UITableView) -> UIView?
 }
 
 // A regular section with no headers or footers
-public class DefaultTableSection: TableSection {
-    public var rows = [TableRow]()
+open class DefaultTableSection: TableSection {
+    open var rows = [TableRow]()
+    public init() {}
 }
 
 // MARK: - Table view data source
 
-public class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
-    public var sections = [TableSection]()
+open class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
+    open var sections = [TableSection]()
 
     // Iterate through all the rows ensuring each cell's NIB and class is registered with the table
-    public func registerConfigurers(tableView: UITableView) {
+    open func registerConfigurers(_ tableView: UITableView) {
 
         for section in sections {
             for row in section.rows {
                 switch row.source {
-                case .Nib(let nibName):
+                case .nib(let nibName):
                     let nib = UINib(nibName: nibName, bundle: nil)
-                    tableView.registerNib(nib, forCellReuseIdentifier: row.reuseIdentifier)
-                case .Class(let className):
+                    tableView.register(nib, forCellReuseIdentifier: row.reuseIdentifier)
+                case .class(let className):
                     let clazz:AnyClass = className.classFromClassName()
-                    tableView.registerClass(clazz, forCellReuseIdentifier: row.reuseIdentifier)
+                    tableView.register(clazz, forCellReuseIdentifier: row.reuseIdentifier)
                 }
             }
         }
     }
 
     /// Register nib with name identical to its reuse ID
-    static public func registerNib(tableView: UITableView, name: String) {
+    static open func registerNib(_ tableView: UITableView, name: String) {
         let nib = UINib(nibName: name, bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: name)
+        tableView.register(nib, forCellReuseIdentifier: name)
     }
 
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let section = sections[indexPath.section]
-        let row = section.rows[indexPath.row]
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = sections[(indexPath as NSIndexPath).section]
+        let row = section.rows[(indexPath as NSIndexPath).row]
 
-        let cell = tableView.dequeueReusableCellWithIdentifier(row.reuseIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
 
         if let configurer = cell as? TableCellConfigurer {
             configurer.configureIn(row, indexPath: indexPath)
@@ -121,50 +111,56 @@ public class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
 
 // MARK: - Table view delegate
 
-public class TableViewDelegateHelper: NSObject, UITableViewDelegate {
+open class TableViewDelegateHelper: NSObject, UITableViewDelegate {
 
-    override init() { super.init() }
-
-    init(actionTarget: NSObjectProtocol) {
+    public init(actionTarget: NSObjectProtocol) {
         self.target = actionTarget
         super.init()
     }
 
     weak var target: NSObjectProtocol?
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
-        let section = dataSource.sections[indexPath.section]
-        let row = section.rows[indexPath.row]
+        let section = dataSource.sections[(indexPath as NSIndexPath).section]
+        let row = section.rows[(indexPath as NSIndexPath).row]
 
-        if let action = row.action, t = target {
-            t.performSelector(Selector(action), withObject: row)
+        if let action = row.action, let t = target {
+            t.perform(Selector(action), with: row)
         }
     }
 }
 
 
-public class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+open class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
+    public override init(actionTarget: NSObjectProtocol) {
+        super.init(actionTarget: actionTarget)
+    }
+
+    open func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
-        let section = dataSource.sections[indexPath.section]
-        let row = section.rows[indexPath.row]
+        let section = dataSource.sections[(indexPath as NSIndexPath).section]
+        let row = section.rows[(indexPath as NSIndexPath).row]
         return row.height
     }
 }
 
 // Table with section header or footers
-public class TableViewDelegateWithSupplementaryViewsHelper: TableViewDelegateVariableRowHeightHelper {
+open class TableViewDelegateWithSupplementaryViewsHelper: TableViewDelegateVariableRowHeightHelper {
 
-    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public override init(actionTarget: NSObjectProtocol) {
+        super.init(actionTarget: actionTarget)
+    }
+
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
         let section = dataSource.sections[section] as! TableSectionWithSupplementaryViews
         return section.headerViewForTableView(tableView)
     }
 
-    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
         let section = dataSource.sections[section] as! TableSectionWithSupplementaryViews
         return section.headerHeight

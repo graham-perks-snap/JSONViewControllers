@@ -20,7 +20,7 @@ class TableViewController: JSONTableViewController {
 
         user.name = "Graham Perks"
 
-        let url = NSBundle.mainBundle().URLForResource("AccountTable", withExtension: "json")!
+        let url = Bundle.main.url(forResource: "AccountTable", withExtension: "json")!
         setJSON(url)
 
         tableView.rowHeight = UITableViewAutomaticDimension

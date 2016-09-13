@@ -1,6 +1,0 @@
-framework module JSONViewControllers {
-  umbrella header "JSONViewControllers-umbrella.h"
-
-  export *
-  module * { export * }
-}

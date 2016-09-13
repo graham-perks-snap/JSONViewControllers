@@ -22,11 +22,11 @@ class AccountSectionCell: UITableViewCell, JSONTableCellConfigurer {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        contentView.backgroundColor = UIColor.clearColor()
-        backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clear
+        backgroundColor = UIColor.clear
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -36,7 +36,7 @@ class AccountSectionCell: UITableViewCell, JSONTableCellConfigurer {
 
     }
 
-    func configureInTableViewController(tableViewController: UITableViewController, cellDefinition json: JSON) {
+    func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition json: JSON) {
         backdropView.layer.cornerRadius = 10
         backdropView.layer.shadowOffset = CGSize(width: 0, height: 2)
         backdropView.layer.shadowOpacity = 0.1

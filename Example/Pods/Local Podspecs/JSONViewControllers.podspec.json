@@ -1,6 +1,6 @@
 {
   "name": "JSONViewControllers",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "summary": "UICollectionViewController and UITableViewControllers driven by JSON.",
   "homepage": "https://github.com/graham-perks-snap/JSONViewControllers",
   "license": "MIT",
@@ -9,12 +9,12 @@
   },
   "source": {
     "git": "https://github.com/graham-perks-snap/JSONViewControllers.git",
-    "tag": "0.1.0"
+    "tag": "0.1.2"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
-  "source_files": "Pod/Classes/**/*.swift",
+  "source_files": "Pod/Classes/*.swift",
   "frameworks": "UIKit",
   "description": "Easily make a collection or table view from JSON content.\nSimplifies table/collection definition & eases cell reuse between view controllers.\nMove cells' logic to their own controller classes.",
   "dependencies": {

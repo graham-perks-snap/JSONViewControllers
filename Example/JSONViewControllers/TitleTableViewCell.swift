@@ -15,9 +15,9 @@ class TitleTableViewCell: UITableViewCell, JSONTableCellConfigurer {
 
     @IBOutlet weak var captionLabel: UILabel!
 
-    func configureInTableViewController(tableViewController: UITableViewController, cellDefinition: JSON) {
+    func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition: JSON) {
 
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
 
         // Pull the caption from the JSON
         let caption = cellDefinition["heading"].stringValue

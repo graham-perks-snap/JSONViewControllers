@@ -10,18 +10,27 @@ import UIKit
 
 
 public protocol CollectionCellConfigurer {
-    func configureIn(definition: CollectionItem, indexPath: NSIndexPath)
+    func configureIn(_ definition: CollectionItem, indexPath: IndexPath)
 }
 
-extension CollectionCellConfigurer {
-    func configureIn(definition: CollectionItem, indexPath: NSIndexPath) {
+public extension CollectionCellConfigurer {
+    public func configureIn(_ definition: CollectionItem, indexPath: IndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
 
 public enum CollectionRowSource {
-    case Nib(String)
-    case Class(String)
+    case nib(String)
+    case `class`(String)
+}
+
+
+// Swift class names are AppName.ClassName.
+// Prepend the app name with the given class name.
+func classFromClassName(_ className: String) -> AnyClass! {
+    var appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    appName = appName.replacingOccurrences(of: " ", with: "_", options: .literal, range: nil)
+    return NSClassFromString("\(appName).\(className)")
 }
 
 //MARK: Collection Item
@@ -35,7 +44,7 @@ public protocol CollectionItem: class {
     var reuseIdentifier: String { get }
     var action: String? { get }
 
-    func configureIn(cell: CollectionCellConfigurer, indexPath: NSIndexPath)
+    func configureIn(_ cell: CollectionCellConfigurer, indexPath: IndexPath)
 }
 
 public protocol CollectionSection {
@@ -43,55 +52,56 @@ public protocol CollectionSection {
 }
 
 // A regular section with no headers or footers
-public class DefaultCollectionSection: CollectionSection {
-    public var items = [CollectionItem]()
+open class DefaultCollectionSection: CollectionSection {
+    public init() {}
+    open var items = [CollectionItem]()
 }
 
 // MARK: - Collection view data source
 
-public class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource {
-    public var sections = [CollectionSection]()
+open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource {
+    open var sections = [CollectionSection]()
 
     // Iterate through all the rows ensuring each cell's NIB and class is registered with the Collection
-    public func registerConfigurers(collectionView: UICollectionView) {
+    open func registerConfigurers(_ collectionView: UICollectionView) {
 
         for section in sections {
             for item in section.items {
                 switch item.source {
-                case .Nib(let nibName):
+                case .nib(let nibName):
                     let nib = UINib(nibName: nibName, bundle: nil)
 
-                    collectionView.registerNib(nib, forCellWithReuseIdentifier: item.reuseIdentifier)
-                case .Class(let className):
-                    let clazz:AnyClass = className.classFromClassName()
-                    collectionView.registerClass(clazz, forCellWithReuseIdentifier: item.reuseIdentifier)
+                    collectionView.register(nib, forCellWithReuseIdentifier: item.reuseIdentifier)
+                case .class(let className):
+                    let clazz:AnyClass = classFromClassName(className)
+                    collectionView.register(clazz, forCellWithReuseIdentifier: item.reuseIdentifier)
                 }
             }
         }
     }
 
     /// Register nib with name identical to its reuse ID
-    static public func registerNib(collectionView: UICollectionView, name: String) {
+    static open func registerNib(_ collectionView: UICollectionView, name: String) {
         let nib = UINib(nibName: name, bundle: nil)
-        collectionView.registerNib(nib, forCellWithReuseIdentifier: name)
+        collectionView.register(nib, forCellWithReuseIdentifier: name)
     }
 
 
-    public func numberOfSectionsInCollectionView(CollectionView: UICollectionView) -> Int {
+    open func numberOfSections(in CollectionView: UICollectionView) -> Int {
         return sections.count
     }
 
 
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].items.count
     }
 
 
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let section = sections[indexPath.section]
-        let item = section.items[indexPath.row]
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = sections[(indexPath as NSIndexPath).section]
+        let item = section.items[(indexPath as NSIndexPath).row]
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(item.reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.reuseIdentifier, for: indexPath)
 
         if let configurer = cell as? CollectionCellConfigurer {
             configurer.configureIn(item, indexPath: indexPath)
@@ -104,25 +114,25 @@ public class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSourc
 
 // MARK: - Collection view delegate
 
-public class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
+open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
 
-    override init() { super.init() }
+    public override init() { super.init() }
 
-    init(collectionViewController: UICollectionViewController) {
+    public init(collectionViewController: UICollectionViewController) {
         self.collectionViewController = collectionViewController
         super.init()
     }
 
     weak var collectionViewController: UICollectionViewController?
 
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
 
-        let section = dataSource.sections[indexPath.section]
-        let row = section.items[indexPath.row]
+        let section = dataSource.sections[(indexPath as NSIndexPath).section]
+        let row = section.items[(indexPath as NSIndexPath).row]
 
-        if let action = row.action, target = collectionViewController {
-            target.performSelector(Selector(action), withObject: row)
+        if let action = row.action, let target = collectionViewController {
+            target.perform(Selector(action), with: row)
         }
     }
 }

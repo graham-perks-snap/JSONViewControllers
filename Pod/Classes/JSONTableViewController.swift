@@ -10,27 +10,27 @@ import UIKit
 import SwiftyJSON
 
 public protocol JSONTableCellConfigurer {
-    func configureInTableViewController(tableViewController: UITableViewController, cellDefinition: JSON)
+    func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition: JSON)
 }
 
 extension String {
     // Swift class names are AppName.ClassName.
     // Prepend the app name with the given class name.
     func classFromClassName() -> AnyClass! {
-        var appName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
-        appName = appName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
+        var appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+        appName = appName.replacingOccurrences(of: " ", with: "_", options: .literal, range: nil)
         return NSClassFromString("\(appName).\(self)")
     }
 }
 
-public class JSONTableViewController: UITableViewController {
+open class JSONTableViewController: UITableViewController {
 
-    public var sections: JSON!
+    open var sections: JSON!
     var cellConfigurers = [String: JSONTableCellConfigurer]()
 
     //MARK:
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
     }
 
@@ -52,76 +52,71 @@ public class JSONTableViewController: UITableViewController {
 
     //MARK:
 
-    public func setJSON(url:NSURL) {
-        if let data = NSData(contentsOfURL: url) {
-            var error : NSError?
-            sections = JSON(data: data, error: &error)
-            if error != nil {
-                print("Failed to read table definition \(error)")
-                return
-            }
+    open func setJSON(_ url:URL) {
+        if let data = try? Data(contentsOf: url) {
+            sections = JSON(data: data, options:.allowFragments)
 
             registerConfigurers()
         }
     }
 
     // Iterate through all the rows ensuring each cell's NIB and class is registered with the table
-    public func registerConfigurers() {
+    open func registerConfigurers() {
 
         for section in sections.arrayValue {
             for row in section["rows"].arrayValue {
                 if let rowClass = row["class"].string {
                     let clazz:AnyClass = rowClass.classFromClassName()
                     let reuseId = row["reuseId"].string ?? rowClass // use reuseId if one is provided
-                    tableView.registerClass(clazz, forCellReuseIdentifier: reuseId)
+                    tableView.register(clazz, forCellReuseIdentifier: reuseId)
                 }
                 else if let rowNib = row["nib"].string {
                     let nib = UINib(nibName: rowNib, bundle: nil)
-                    tableView.registerNib(nib, forCellReuseIdentifier: rowNib)
+                    tableView.register(nib, forCellReuseIdentifier: rowNib)
                 }
             }
         }
     }
 
-    public func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
-        let section = sections.arrayValue[indexPath.section]
+    open func cellForIndexPath(_ indexPath : IndexPath) -> JSON {
+        let section = sections.arrayValue[(indexPath as NSIndexPath).section]
         let rows = section["rows"]
-        let row = rows[indexPath.row]
+        let row = rows[(indexPath as NSIndexPath).row]
 
         return row
     }
 
-    override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = cellForIndexPath(indexPath)
 
         if let action = row["action"].string {
             if action.hasSuffix(":") {
-                self.performSelector(Selector(action), withObject: row.dictionaryObject!)
+                self.perform(Selector(action), with: row.dictionaryObject!)
             }
             else {
-                self .performSelector(Selector(action))
+                self .perform(Selector(action))
             }
         }
     }
 
     // MARK: - Table view data source
 
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
 
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["reuseId"].string ?? (row["class"].string ?? row["nib"].stringValue)
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseId, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
 
         // Configure the cell...
 

@@ -10,16 +10,16 @@ import UIKit
 import SwiftyJSON
 
 public protocol JSONCollectionCellConfigurer {
-    func configureInCollectionViewController(collectionViewController: UICollectionViewController, cellDefinition: JSON)
+    func configureInCollectionViewController(_ collectionViewController: UICollectionViewController, cellDefinition: JSON)
 }
 
-public class JSONCollectionViewController: UICollectionViewController {
+open class JSONCollectionViewController: UICollectionViewController {
 
-    public var sections: JSON!
+    open var sections: JSON!
     var cellConfigurers = [String: JSONCollectionCellConfigurer]()
 
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -27,64 +27,59 @@ public class JSONCollectionViewController: UICollectionViewController {
     }
 
 
-    public func setJSON(url:NSURL) {
+    open func setJSON(_ url:URL) {
 
-        if let data = NSData(contentsOfURL: url) {
-            var error : NSError?
-            sections = JSON(data: data, error: &error)
-            if error != nil {
-                print("Failed to read table definition \(error)")
-                return
-            }
+        if let data = try? Data(contentsOf: url) {
+            sections = JSON(data: data, options:.allowFragments)
 
             registerConfigurers()
         }
     }
 
     // Iterate through all the rows ensuring each cell's NIB and class is registered with the table
-    public func registerConfigurers() {
+    open func registerConfigurers() {
 
         for section in sections.arrayValue {
             for row in section["rows"].arrayValue {
                 if let rowClass = row["class"].string {
                     let clazz:AnyClass = rowClass.classFromClassName()
-                    collectionView!.registerClass(clazz, forCellWithReuseIdentifier: rowClass)
+                    collectionView!.register(clazz, forCellWithReuseIdentifier: rowClass)
                 }
                 else if let rowNib = row["nib"].string {
                     let nib = UINib(nibName: rowNib, bundle: nil)
-                    collectionView!.registerNib(nib, forCellWithReuseIdentifier: rowNib)
+                    collectionView!.register(nib, forCellWithReuseIdentifier: rowNib)
                 }
             }
         }
     }
 
 
-    public func cellForIndexPath(indexPath : NSIndexPath) -> JSON {
-        let section = sections.arrayValue[indexPath.section]
+    open func cellForIndexPath(_ indexPath : IndexPath) -> JSON {
+        let section = sections.arrayValue[(indexPath as NSIndexPath).section]
         let rows = section["rows"]
-        let row = rows[indexPath.row]
+        let row = rows[(indexPath as NSIndexPath).row]
 
         return row
     }
 
     // MARK: UICollectionViewDataSource
 
-    override public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
 
 
-    override public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
-    override public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["class"].string ?? row["nib"].stringValue
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseId, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseId, for: indexPath)
 
         // Configure the cell...
 
@@ -99,23 +94,23 @@ public class JSONCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
 
 
-    override public func collectionView(collectionView: UICollectionView,
-                          didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override open func collectionView(_ collectionView: UICollectionView,
+                          didSelectItemAt indexPath: IndexPath) {
         
         let row = cellForIndexPath(indexPath)
 
         if let action = row["action"].string {
             if action.hasSuffix(":") {
-                self.performSelector(Selector(action), withObject: row.dictionaryObject!)
+                self.perform(Selector(action), with: row.dictionaryObject!)
             }
             else {
-                self .performSelector(Selector(action))
+                self .perform(Selector(action))
             }
         }
 
     }
 
-    override public  func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+    override open  func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
 

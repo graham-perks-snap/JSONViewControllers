@@ -15,9 +15,9 @@ class SpacerTableViewCell: UITableViewCell, JSONTableCellConfigurer {
 
     var heightConstraint: NSLayoutConstraint?
 
-    func configureInTableViewController(tableViewController: UITableViewController, cellDefinition json: JSON) {
-        backgroundColor = UIColor.clearColor()
-        selectionStyle = .None
+    func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition json: JSON) {
+        backgroundColor = UIColor.clear
+        selectionStyle = .none
 
         contentView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -37,7 +37,7 @@ class SpacerTableViewCell: UITableViewCell, JSONTableCellConfigurer {
                 // Fallback on earlier versions
                 hConstraint = NSLayoutConstraint(item: contentView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height)
             }
-            NSLayoutConstraint.activateConstraints([hConstraint])
+            NSLayoutConstraint.activate([hConstraint])
             heightConstraint = hConstraint
         }
     }
