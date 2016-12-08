@@ -22,6 +22,7 @@ public extension TableCellConfigurer {
 public enum TableRowSource {
     case nib(String)
     case `class`(String)
+    case prototype
 }
 
 //MARK: Table Row
@@ -72,7 +73,11 @@ open class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
                 case .class(let className):
                     let clazz:AnyClass = className.classFromClassName()
                     tableView.register(clazz, forCellReuseIdentifier: row.reuseIdentifier)
+                case .prototype:
+                    // Prototype cells are registered by storyboard loader. 
+                    break
                 }
+
             }
         }
     }
