@@ -118,12 +118,12 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
 
     public override init() { super.init() }
 
-    public init(collectionViewController: UICollectionViewController) {
-        self.collectionViewController = collectionViewController
+    public init(actionTarget: NSObjectProtocol) {
+        self.target = actionTarget
         super.init()
     }
 
-    weak var collectionViewController: UICollectionViewController?
+    weak var target: NSObjectProtocol?
 
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
@@ -131,7 +131,7 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
         let row = section.items[(indexPath as NSIndexPath).row]
 
-        if let action = row.action, let target = collectionViewController {
+        if let action = row.action, let target = target {
             target.perform(Selector(action), with: row)
         }
     }
