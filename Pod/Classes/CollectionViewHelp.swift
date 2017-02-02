@@ -19,7 +19,17 @@ public extension CollectionCellConfigurer {
     }
 }
 
-public enum CollectionRowSource {
+public protocol CollectionHeaderConfigurer {
+    func configureIn(_ definition: CollectionHeader, indexPath: IndexPath)
+}
+
+public extension CollectionHeaderConfigurer {
+    public func configureIn(_ definition: CollectionHeader, indexPath: IndexPath) {
+        definition.configureIn(self, indexPath: indexPath)
+    }
+}
+
+public enum CollectionItemSource {
     case nib(String)
     case `class`(String)
 }
@@ -35,16 +45,24 @@ func classFromClassName(_ className: String) -> AnyClass! {
 
 //MARK: Collection Item
 
-// Implement CollectionRow, add rows to sections to build the Collection
+// Implement CollectionItem, add items to sections to build the Collection
 public protocol CollectionItem: class {
     // Need either a nib or a class to register with
-
-    var source: CollectionRowSource {get}
+    var source: CollectionItemSource {get}
 
     var reuseIdentifier: String { get }
     var action: String? { get }
 
     func configureIn(_ cell: CollectionCellConfigurer, indexPath: IndexPath)
+}
+
+public protocol CollectionHeader: class {
+    // Need either a nib or a class to register with
+    var source: CollectionItemSource {get}
+
+    var reuseIdentifier: String { get }
+
+    func configureIn(_ cell: CollectionHeaderConfigurer, indexPath: IndexPath)
 }
 
 public protocol CollectionSection {
@@ -55,6 +73,12 @@ public protocol CollectionSection {
 open class DefaultCollectionSection: CollectionSection {
     public init() {}
     open var items = [CollectionItem]()
+}
+
+open class HeaderedCollectionSection: CollectionSection {
+    public init() {}
+    open var items = [CollectionItem]()
+    open var header: CollectionHeader?
 }
 
 // MARK: - Collection view data source
@@ -98,8 +122,8 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
 
 
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let section = sections[(indexPath as NSIndexPath).section]
-        let item = section.items[(indexPath as NSIndexPath).row]
+        let section = sections[indexPath.section]
+        let item = section.items[indexPath.row]
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: item.reuseIdentifier, for: indexPath)
 
@@ -110,6 +134,20 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
         return cell
     }
 
+    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        guard let section = sections[indexPath.section] as? HeaderedCollectionSection else { fatalError("Section has no header specified") }
+
+        guard let header = section.header else { fatalError("Section has no header") }
+
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: header.reuseIdentifier, for: indexPath)
+
+        if let configurer = view as? CollectionHeaderConfigurer {
+            configurer.configureIn(header, indexPath: indexPath)
+        }
+
+        return view
+    }
 }
 
 // MARK: - Collection view delegate
