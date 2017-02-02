@@ -1,36 +1,19 @@
 PODS:
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
-    - FBSnapshotTestCase/Core
-  - JSONViewControllers (0.1.0):
+  - JSONViewControllers (0.1.4):
     - SwiftyJSON
-  - Nimble (3.0.0)
-  - Nimble-Snapshots (3.0.0):
-    - FBSnapshotTestCase (~> 2.0.7)
-    - Nimble
-    - Quick
-  - Quick (0.8.0)
-  - SwiftyJSON (2.3.2)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
-  - JSONViewControllers (from `../`)
-  - Nimble (= 3.0.0)
-  - Nimble-Snapshots
-  - Quick (~> 0.8.0)
+  - JSONViewControllers (from `..`)
 
 EXTERNAL SOURCES:
   JSONViewControllers:
-    :path: ../
+    :path: ..
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
-  JSONViewControllers: 3f024d289ae245df509bc96873e5c9ea02567098
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  JSONViewControllers: 3c6bdffdf5ab75f24b3a5ada357c84dcf5eacc33
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: e33e60f2f3825aeaa6fce05a78a5a7c5eceb0af7
+
+COCOAPODS: 1.2.0.rc.1

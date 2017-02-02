@@ -48,7 +48,7 @@ class AccountSectionCell: UITableViewCell, JSONTableCellConfigurer {
         actionLabel.text = json["actionText"].stringValue
 
         let nameKeyPath = json["nameTextKeyPath"].stringValue
-        let name = tableViewController.valueForKeyPath(nameKeyPath) as! String
+        let name = tableViewController.value(forKeyPath: nameKeyPath) as! String
         nameLabel.text = name
     }
 

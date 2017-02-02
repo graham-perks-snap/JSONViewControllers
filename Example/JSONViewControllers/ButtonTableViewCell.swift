@@ -31,7 +31,7 @@ class ButtonTableViewCell: UITableViewCell, JSONTableCellConfigurer {
 
     @IBAction func didTapButton(_ sender: AnyObject) {
         let sel = Selector(action!)
-        tableViewController?.perform(sel, with: self)
+        _ = tableViewController?.perform(sel, with: self)
     }
 
     func configureInTableViewController(_ tableViewController: UITableViewController, cellDefinition json: JSON) {
@@ -39,10 +39,10 @@ class ButtonTableViewCell: UITableViewCell, JSONTableCellConfigurer {
         self.tableViewController = tableViewController
         action = json["action"].stringValue
 
-        button.setTitle(json["title"].stringValue, forState: .Normal)
+        button.setTitle(json["title"].stringValue, for: .normal)
 
         if let color = json["textColor"].string {
-            button.setTitleColor(UIColor(hexString:color), forState: .Normal)
+            button.setTitleColor(UIColor(hexString:color), for: .normal)
         }
     }
 }
