@@ -56,6 +56,14 @@ public protocol CollectionItem: class {
     func configureIn(_ cell: CollectionCellConfigurer, indexPath: IndexPath)
 }
 
+public protocol CollectionItemWithHeight: CollectionItem {
+    var height: CGFloat { get }
+}
+
+public protocol CollectionItemWithSize: CollectionItem {
+    var preferredSize: CGSize { get }
+}
+
 public protocol CollectionHeader: class {
     // Need either a nib or a class to register with
     var source: CollectionItemSource {get}

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "JSONViewControllers"
-  s.version          = "0.1.5"
+  s.version          = "0.1.6"
   s.summary          = "UICollectionViewController and UITableViewControllers, one driven by JSON, one by model rows."
   s.homepage         = "https://github.com/graham-perks-snap/JSONViewControllers"
   s.license          = 'MIT'
