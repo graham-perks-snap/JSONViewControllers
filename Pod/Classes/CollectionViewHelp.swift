@@ -32,6 +32,7 @@ public extension CollectionHeaderConfigurer {
 public enum CollectionItemSource {
     case nib(String)
     case `class`(String)
+    case prototype
 }
 
 
@@ -107,6 +108,9 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
                 case .class(let className):
                     let clazz:AnyClass = classFromClassName(className)
                     collectionView.register(clazz, forCellWithReuseIdentifier: item.reuseIdentifier)
+                case .prototype:
+                    // Prototype cells are registered by storyboard loader.
+                    break
                 }
             }
         }
