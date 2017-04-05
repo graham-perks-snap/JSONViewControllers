@@ -187,6 +187,33 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
     }
 }
 
+// Coordinate flow layout with any CollectionItemWithSize, CollectionItemWithHeight
+extension CollectionViewDelegateHelper: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
+
+        let section = dataSource.sections[indexPath.section]
+        let item = section.items[indexPath.item]
+
+        if let item = item as? CollectionItemWithSize {
+            return item.preferredSize
+        }
+        if let item = item as? CollectionItemWithHeight {
+            return CGSize(width: collectionView.bounds.width, height: item.height)
+        }
+        else if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+            return layout.itemSize
+        }
+        else {
+            fatalError("Override me")
+        }
+    }
+
+}
+
 // I wish this worked, but protocol extension methods are invisible to UIKit.
 //public protocol CollectionViewDelegateHelper2: class {
 //
