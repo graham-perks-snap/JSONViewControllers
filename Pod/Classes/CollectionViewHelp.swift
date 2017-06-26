@@ -173,7 +173,7 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
         super.init()
     }
 
-    weak var target: NSObjectProtocol?
+    public weak var target: NSObjectProtocol?
 
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
@@ -182,7 +182,12 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
         let row = section.items[(indexPath as NSIndexPath).row]
 
         if let action = row.action, let target = target {
-            target.perform(Selector(action), with: row)
+            if action.hasSuffix("::") {
+                target.perform(Selector(action), with: row, with: indexPath)
+            }
+            else {
+                target.perform(Selector(action), with: row)
+            }
         }
     }
 }

@@ -123,7 +123,7 @@ open class TableViewDelegateHelper: NSObject, UITableViewDelegate {
         super.init()
     }
 
-    weak var target: NSObjectProtocol?
+    public weak var target: NSObjectProtocol?
 
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
@@ -131,8 +131,13 @@ open class TableViewDelegateHelper: NSObject, UITableViewDelegate {
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
         let row = section.rows[(indexPath as NSIndexPath).row]
 
-        if let action = row.action, let t = target {
-            t.perform(Selector(action), with: row)
+        if let action = row.action, let target = target {
+            if action.hasSuffix("::") {
+                target.perform(Selector(action), with: row, with: indexPath)
+            }
+            else {
+                target.perform(Selector(action), with: row)
+            }
         }
     }
 }
