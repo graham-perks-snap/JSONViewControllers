@@ -19,7 +19,7 @@ open class JSONCollectionViewController: UICollectionViewController {
     var cellConfigurers = [String: JSONCollectionCellConfigurer]()
 
 
-    override open func viewDidLoad() {
+    @objc override open func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -64,18 +64,18 @@ open class JSONCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override open func numberOfSections(in collectionView: UICollectionView) -> Int {
+    @objc override open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
 
 
-    override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    @objc override open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
-    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    @objc override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["class"].string ?? row["nib"].stringValue
@@ -94,7 +94,7 @@ open class JSONCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDelegate
 
 
-    override open func collectionView(_ collectionView: UICollectionView,
+    @objc override open func collectionView(_ collectionView: UICollectionView,
                           didSelectItemAt indexPath: IndexPath) {
         
         let row = cellForIndexPath(indexPath)
@@ -110,7 +110,7 @@ open class JSONCollectionViewController: UICollectionViewController {
 
     }
 
-    override open  func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    @objc override open  func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
 

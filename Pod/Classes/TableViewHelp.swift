@@ -89,17 +89,17 @@ open class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
     }
 
 
-    open func numberOfSections(in tableView: UITableView) -> Int {
+    @objc open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
 
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @objc open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].rows.count
     }
 
 
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    @objc open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[(indexPath as NSIndexPath).section]
         let row = section.rows[(indexPath as NSIndexPath).row]
 
@@ -125,7 +125,7 @@ open class TableViewDelegateHelper: NSObject, UITableViewDelegate {
 
     public weak var target: NSObjectProtocol?
 
-    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
@@ -148,7 +148,7 @@ open class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
         super.init(actionTarget: actionTarget)
     }
 
-    open func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    @objc open func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
@@ -164,13 +164,13 @@ open class TableViewDelegateWithSupplementaryViewsHelper: TableViewDelegateVaria
         super.init(actionTarget: actionTarget)
     }
 
-    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    @objc open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
         let section = dataSource.sections[section] as! TableSectionWithSupplementaryViews
         return section.headerViewForTableView(tableView)
     }
 
-    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    @objc open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
         let section = dataSource.sections[section] as! TableSectionWithSupplementaryViews
         return section.headerHeight

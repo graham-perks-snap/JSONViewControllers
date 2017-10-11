@@ -123,17 +123,17 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
     }
 
 
-    open func numberOfSections(in CollectionView: UICollectionView) -> Int {
+    @objc open func numberOfSections(in CollectionView: UICollectionView) -> Int {
         return sections.count
     }
 
 
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    @objc open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].items.count
     }
 
 
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    @objc open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = sections[indexPath.section]
         let item = section.items[indexPath.row]
 
@@ -146,7 +146,7 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
         return cell
     }
 
-    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    @objc open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
         guard let section = sections[indexPath.section] as? HeaderedCollectionSection else { fatalError("Section has no header specified") }
 
@@ -175,7 +175,7 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
 
     public weak var target: NSObjectProtocol?
 
-    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    @objc open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
 
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
@@ -194,7 +194,7 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
 
 // Coordinate flow layout with any CollectionItemWithSize, CollectionItemWithHeight
 extension CollectionViewDelegateHelper: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView,
+    @objc public func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
@@ -225,7 +225,7 @@ extension CollectionViewDelegateHelper: UICollectionViewDelegateFlowLayout {
 //}
 //
 //extension CollectionViewDelegateHelper2 where Self: NSObjectProtocol {
-//    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//    @objc public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 //        let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
 //
 //        let section = dataSource.sections[indexPath.section]

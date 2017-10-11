@@ -86,7 +86,7 @@ open class JSONTableViewController: UITableViewController {
         return row
     }
 
-    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @objc override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = cellForIndexPath(indexPath)
 
         if let action = row["action"].string {
@@ -101,18 +101,18 @@ open class JSONTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override open func numberOfSections(in tableView: UITableView) -> Int {
+    @objc override open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
-    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @objc override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections.arrayValue[section]
         let rows = section["rows"]
         return rows.count
     }
 
 
-    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    @objc override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let row = cellForIndexPath(indexPath)
         let reuseId = row["reuseId"].string ?? (row["class"].string ?? row["nib"].stringValue)
