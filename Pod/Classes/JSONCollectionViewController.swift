@@ -30,7 +30,7 @@ open class JSONCollectionViewController: UICollectionViewController {
     open func setJSON(_ url:URL) {
 
         if let data = try? Data(contentsOf: url) {
-            sections = JSON(data: data, options:.allowFragments)
+            sections = try? JSON(data: data, options:.allowFragments)
 
             registerConfigurers()
         }
