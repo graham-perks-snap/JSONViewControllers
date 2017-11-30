@@ -148,7 +148,7 @@ open class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
         super.init(actionTarget: actionTarget)
     }
 
-    @objc open func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    @objc open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
         let section = dataSource.sections[(indexPath as NSIndexPath).section]
