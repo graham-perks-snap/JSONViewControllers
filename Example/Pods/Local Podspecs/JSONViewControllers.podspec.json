@@ -1,6 +1,6 @@
 {
   "name": "JSONViewControllers",
-  "version": "0.1.8",
+  "version": "0.1.11",
   "summary": "UICollectionViewController and UITableViewControllers, one driven by JSON, one by model rows.",
   "homepage": "https://github.com/graham-perks-snap/JSONViewControllers",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/graham-perks-snap/JSONViewControllers.git",
-    "tag": "0.1.8"
+    "tag": "0.1.11"
   },
   "platforms": {
     "ios": "9.0",

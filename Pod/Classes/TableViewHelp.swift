@@ -14,7 +14,7 @@ public protocol TableCellConfigurer {
 }
 
 public extension TableCellConfigurer {
-    public func configureIn(_ definition: TableRow, indexPath: IndexPath) {
+    func configureIn(_ definition: TableRow, indexPath: IndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
@@ -83,7 +83,7 @@ open class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
     }
 
     /// Register nib with name identical to its reuse ID
-    static open func registerNib(_ tableView: UITableView, name: String) {
+    static public func registerNib(_ tableView: UITableView, name: String) {
         let nib = UINib(nibName: name, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: name)
     }

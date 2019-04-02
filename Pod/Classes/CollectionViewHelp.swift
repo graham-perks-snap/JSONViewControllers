@@ -14,7 +14,7 @@ public protocol CollectionCellConfigurer {
 }
 
 public extension CollectionCellConfigurer {
-    public func configureIn(_ definition: CollectionItem, indexPath: IndexPath) {
+    func configureIn(_ definition: CollectionItem, indexPath: IndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
@@ -24,7 +24,7 @@ public protocol CollectionHeaderConfigurer {
 }
 
 public extension CollectionHeaderConfigurer {
-    public func configureIn(_ definition: CollectionHeader, indexPath: IndexPath) {
+    func configureIn(_ definition: CollectionHeader, indexPath: IndexPath) {
         definition.configureIn(self, indexPath: indexPath)
     }
 }
@@ -117,7 +117,7 @@ open class CollectionViewDataSourceHelper: NSObject, UICollectionViewDataSource 
     }
 
     /// Register nib with name identical to its reuse ID
-    static open func registerNib(_ collectionView: UICollectionView, name: String) {
+    static public func registerNib(_ collectionView: UICollectionView, name: String) {
         let nib = UINib(nibName: name, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: name)
     }

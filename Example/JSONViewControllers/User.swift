@@ -9,5 +9,5 @@
 import Foundation
 
 class User: NSObject {
-    var name: String = ""
+    @objc var name: String = ""
 }
