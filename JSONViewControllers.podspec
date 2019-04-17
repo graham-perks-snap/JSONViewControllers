@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Snap Kitchen" => "graham_perks@snapkitchen.com" }
   s.source           = { :git => "https://github.com/graham-perks-snap/JSONViewControllers.git", :tag => s.version.to_s }
+  s.swift_versions   = '5'
   s.ios.deployment_target  = '9.0'
   s.tvos.deployment_target = '10.0'
   s.source_files     = 'Pod/Classes/*.swift'
