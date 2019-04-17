@@ -178,8 +178,8 @@ open class CollectionViewDelegateHelper: NSObject, UICollectionViewDelegate {
     @objc open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dataSource = collectionView.dataSource as! CollectionViewDataSourceHelper
 
-        let section = dataSource.sections[(indexPath as NSIndexPath).section]
-        let row = section.items[(indexPath as NSIndexPath).row]
+        let section = dataSource.sections[indexPath.section]
+        let row = section.items[indexPath.row]
 
         if let action = row.action, let target = target {
             if action.hasSuffix("::") {

@@ -100,8 +100,8 @@ open class TableViewDataSourceHelper: NSObject, UITableViewDataSource {
 
 
     @objc open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = sections[(indexPath as NSIndexPath).section]
-        let row = section.rows[(indexPath as NSIndexPath).row]
+        let section = sections[indexPath.section]
+        let row = section.rows[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
 
@@ -128,8 +128,8 @@ open class TableViewDelegateHelper: NSObject, UITableViewDelegate {
     @objc open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
-        let section = dataSource.sections[(indexPath as NSIndexPath).section]
-        let row = section.rows[(indexPath as NSIndexPath).row]
+        let section = dataSource.sections[indexPath.section]
+        let row = section.rows[indexPath.row]
 
         if let action = row.action, let target = target {
             if action.hasSuffix("::") {
@@ -151,8 +151,8 @@ open class TableViewDelegateVariableRowHeightHelper: TableViewDelegateHelper {
     @objc open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let dataSource = tableView.dataSource as! TableViewDataSourceHelper
 
-        let section = dataSource.sections[(indexPath as NSIndexPath).section]
-        let row = section.rows[(indexPath as NSIndexPath).row]
+        let section = dataSource.sections[indexPath.section]
+        let row = section.rows[indexPath.row]
         return row.height
     }
 }

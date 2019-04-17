@@ -55,9 +55,9 @@ open class JSONCollectionViewController: UICollectionViewController {
 
 
     open func cellForIndexPath(_ indexPath : IndexPath) -> JSON {
-        let section = sections.arrayValue[(indexPath as NSIndexPath).section]
+        let section = sections.arrayValue[indexPath.section]
         let rows = section["rows"]
-        let row = rows[(indexPath as NSIndexPath).row]
+        let row = rows[indexPath.row]
 
         return row
     }

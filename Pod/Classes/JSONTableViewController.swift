@@ -79,9 +79,9 @@ open class JSONTableViewController: UITableViewController {
     }
 
     open func cellForIndexPath(_ indexPath : IndexPath) -> JSON {
-        let section = sections.arrayValue[(indexPath as NSIndexPath).section]
+        let section = sections.arrayValue[indexPath.section]
         let rows = section["rows"]
-        let row = rows[(indexPath as NSIndexPath).row]
+        let row = rows[indexPath.row]
 
         return row
     }
@@ -90,11 +90,14 @@ open class JSONTableViewController: UITableViewController {
         let row = cellForIndexPath(indexPath)
 
         if let action = row["action"].string {
-            if action.hasSuffix(":") {
-                self.perform(Selector(action), with: row.dictionaryObject!)
+            if action.hasSuffix("::") {
+                perform(Selector(action), with: row.dictionaryObject!, with: indexPath)
+            }
+            else if action.hasSuffix(":") {
+                perform(Selector(action), with: row.dictionaryObject!)
             }
             else {
-                self .perform(Selector(action))
+                perform(Selector(action))
             }
         }
     }
